@@ -8,7 +8,7 @@ import enigma.console.TextAttributes;
 import java.awt.Color;
 
 public class RobotOlympics {
-	public enigma.console.Console cn = Enigma.getConsole("Mouse and Keyboard", 150, 49, 12);
+	public enigma.console.Console cn = Enigma.getConsole("Mouse and Keyboard", 150, 55, 12);
 
 	public TextMouseListener tmlis;
 	public KeyListener klis;
@@ -31,7 +31,7 @@ public class RobotOlympics {
 	public int gameCountC = -1;
 	Team humanTeam;
 	Team computerTeam;
-
+	private boolean flagEndEnter=true;
 	private int chessPointH1 = 0;
 	private int pingPointH1;
 	private int runPointH1;
@@ -134,7 +134,7 @@ public class RobotOlympics {
 					mouseReset(twentyPieces[testI][testJ].area.startX, twentyPieces[testI][testJ].area.startY);
 				}
 				
-
+				if(gameCountC < 1) {
 				// burda 20 tane piece üstünden geçip hepsinin areasına bakıp true olanı alıp
 				// onun seçilmesi gerekiyor
 				for (int i = 0; i < twentyPieces.length; i++) {
@@ -151,6 +151,7 @@ public class RobotOlympics {
 							}
 						}
 					}
+				}
 				}
 
 			}
@@ -280,7 +281,7 @@ public class RobotOlympics {
 
 				if (rkey == KeyEvent.VK_ENTER) {
 					if (gameCountC < 1) {
-						if (flag) {
+						if (flag ) {
 							gameCountH++;
 							humanTeam.humanRobots[gameCountH].humanRobotSkeletWriter(cn, 3, 2, emptyCube);
 							flag = false;
@@ -304,7 +305,7 @@ public class RobotOlympics {
 							}
 							informationScreenHuman();
 
-						} else {
+						} else if (!flag &&  humanTeam.humanRobots[gameCountH].robotFull()){
 							gameCountC++;
 							
 							informationUsedPieces();
@@ -314,11 +315,16 @@ public class RobotOlympics {
 							flag = true;
 						}
 					} else {
+						
+						if(flagEndEnter) {
 						cleanScreen();
 						robotGamesScreen();
 						roboChess();
 						roboPingPong();
 						roboRun();
+						flagEndEnter=false;
+						}
+						
 
 					}
 
@@ -551,9 +557,9 @@ public class RobotOlympics {
 
 		}
 		int xO = 33;
-		int yO = 42;
+		int yO = 44;
 		cursorx = 32;
-		cursory = 42;
+		cursory = 44;
 		// 7 tane 1'lik piece yazdırılması
 		for (int i = 0; i < oneMainPieces.length; i++) {
 			cn.getTextWindow().setCursorPosition(cursorx - 1, cursory);
@@ -640,13 +646,13 @@ public class RobotOlympics {
 	public void robotGamesScreen() {
 		cn.getTextWindow().setCursorPosition(0, 0);
 		cn.getTextWindow().output("=== RoboChess ==============================================");
-		forcesWriter(0, 3, 35, 1);
+		forcesWriter(0, 2, 35, 1);
 		cn.getTextWindow().setCursorPosition(0, 13);
 		cn.getTextWindow().output("=== RoboPingPong ===========================================");
 		forcesWriter(0, 16, 35, 15);
 		cn.getTextWindow().setCursorPosition(0, 26);
 		cn.getTextWindow().output("=== RoboRun ================================================");
-		forcesWriter(0, 29, 35, 29);
+		forcesWriter(0, 30, 35, 29);
 
 	}
 
@@ -954,5 +960,6 @@ public class RobotOlympics {
 		}
 		
 	}
+
 	
 }

@@ -171,9 +171,7 @@ public class Robot {
 			
 		textWindow.getTextWindow().output("   Robot Intelligence: "+In+"\n"+"   Skill: "+Sk+"\n"+"     Left Arm: "+LA+"\n"+"     Right Arm: "+RA+"\n"+"   Speed: "+Sp+"\n"+"     Left leg: "+LL+"\n"+"     Right leg: "+RL+"\n"+"\n");
 		
-		/*textWindow.getTextWindow().output(" Human Robot 1 (HR1)"+"\n"+" In:      Sk:     Sp:"+"\n");
-		textWindow.getTextWindow().output(" Computer Robot 1 (CR1)"+"\n"+" In:      Sk:     Sp:");
-		textWindow.getTextWindow().setCursorPosition(1,1);*/
+		
 		
 	}
 	public void humanRobotSkeletWriter(enigma.console.Console textWindow,int x, int y, char [][]emptyCube) {
@@ -224,8 +222,8 @@ public class Robot {
 		boolean outOfBorder = false;
 		boolean doesOverlap = false;
 		boolean outOfMainBorder=false;
-		boolean isEmpty=true;
-		Cube[][] tempCubes = new Cube[5][5];
+		
+		
 		
 		
 		
@@ -339,6 +337,21 @@ public class Robot {
 		
 		
 		
+	}
+	public boolean robotFull() {
+		boolean flag=true;
+		for (int i = 0; i < robot.length; i++) {
+			for (int j = 0; j < robot.length; j++) {
+				if (!((i  == 0 && j != 2) || (j  == 0 && i != 1) || (j  == 4 && i != 1) || (i == 4 && j  == 2))) {
+					if(robot[i][j]==null) {
+						flag=false;
+						break;
+					}
+					
+				}
+			}
+		}
+		return flag;
 	}
 		
 		
